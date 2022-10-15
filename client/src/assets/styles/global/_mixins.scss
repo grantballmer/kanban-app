@@ -1,0 +1,48 @@
+// utility margin and padding classes
+// ex. element with margin-left__tiny = margin-left: .25rem;
+@mixin property($property, $position, $spacing) {
+  @if $spacing == "tiny" {
+    #{$property + '-' + $position}: $spacing-tiny;
+  } @else if $spacing == "small" {
+    #{$property + '-' + $position}: $spacing-small;
+  } @else if $spacing == "default" {
+    #{$property + '-' + $position}: $spacing-default;
+  } @else if $spacing == "medium" {
+    #{$property + '-' + $position}: $spacing-medium;
+  } @else if $spacing == "large" {
+    #{$property + '-' + $position}: $spacing-large;
+  } @else if $spacing == "none" {
+    #{$property + '-' + $position}: 0;
+  } @else if $spacing == "auto" {
+    #{$property + '-' + $position}: auto;
+  }
+}
+
+@each $property in $properties {
+  @each $position in $positions {
+    @each $spacing in $spacings {
+      .#{$property}-#{$position}-#{$spacing} {
+        @include property($property, $position, $spacing);
+      }
+    }
+  }
+}
+
+// utility border classes, border-top, border-left, border-right, border-bottom
+@mixin border($position, $color) {
+  #{border + '-' + $position}: $border;
+
+  @if $color == "white" {
+    border-color: white;
+  } @else if $color == "default" {
+    border-color: $light-grey;
+  }
+}
+
+@each $position in $positions {
+  @each $color in $border-colors {
+    .border-#{$position}-#{$color} {
+      @include border($position, $color);
+    }
+  }
+}

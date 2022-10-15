@@ -1,0 +1,17 @@
+a {
+  text-decoration: none;
+}
+
+.bold-heading {
+  color: white;
+  font-weight: 700;
+
+  &.large {
+    font-size: 1.2rem;
+  }
+}
+
+.subheading {
+  color: $lighter-grey;
+  font-size: 0.9rem;
+}

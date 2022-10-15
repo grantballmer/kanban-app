@@ -1,0 +1,32 @@
+@import "../../../assets/styles/main.scss";
+
+.ReactModal__Overlay {
+  position: fixed;
+  inset: 0px;
+  background-color: rgba($charcoal, 0.9);
+  z-index: 11;
+}
+
+.modal {
+  width: 40vw;
+  height: 20vw;
+  position: absolute;
+  inset: 50% 40px 40px 50%;
+  border: 1px solid rgb(204, 204, 204);
+  background-color: $grey;
+  overflow: auto;
+  border-radius: 4px;
+  outline: currentcolor none medium;
+  padding: 20px;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+
+  // @include tablet {
+  //   width: 30%;
+  //   height: 80%;
+  // }
+}
+
+.generic {
+  color: white;
+}

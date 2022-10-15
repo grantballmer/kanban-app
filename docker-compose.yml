@@ -1,0 +1,22 @@
+version: "3"
+services:
+  database:
+    container_name: kanban-database
+    image: "postgres"
+    env_file:
+      - .env.docker.database
+    ports:
+      - 5432:5432
+  api:
+    container_name: kanban-server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+    env_file:
+      - .env.docker.node
+    volumes:
+      - ./server:/app
+    ports:
+      - 5000:5000

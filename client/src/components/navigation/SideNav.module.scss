@@ -1,0 +1,26 @@
+@import "../../assets/styles/global/global.scss";
+
+.nav-item {
+  margin-left: -#{$spacing-default};
+  padding: $spacing-default;
+  padding-left: $spacing-default;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  font-weight: 700;
+}
+
+.active {
+  background-color: $purple;
+}
+
+.active a {
+  color: white;
+}
+
+.link {
+  color: $lighter-grey;
+}
+
+.new {
+  color: $purple;
+}

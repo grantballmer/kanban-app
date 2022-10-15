@@ -1,0 +1,22 @@
+.btn {
+  padding: $spacing-default;
+  border-radius: $rounded-corners;
+  border: 0;
+  outline: none;
+  font-weight: bold;
+  cursor: pointer;
+
+  &-primary {
+    background-color: $purple;
+    color: white;
+  }
+
+  &-remove-styling {
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    color: $purple;
+    padding: 0;
+    font-size: 1rem;
+  }
+}

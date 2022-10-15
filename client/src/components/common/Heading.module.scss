@@ -1,0 +1,15 @@
+@import "../../assets/styles/main.scss";
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: block;
+}
+
+.heading {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.1rem;
+  color: $lighter-grey;
+}

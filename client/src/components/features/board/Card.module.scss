@@ -1,0 +1,8 @@
+@import "../../../assets/styles/main.scss";
+
+.card {
+  background-color: $grey;
+  padding: $spacing-default;
+  border-radius: $border-radius;
+  margin-bottom: $spacing-default;
+}

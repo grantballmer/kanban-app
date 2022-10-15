@@ -1,0 +1,23 @@
+@each $color in $background-colors {
+  .bg-#{$color} {
+    background-color: #{"" + $color};
+  }
+}
+
+.flex-row {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// utility flex classes, .justify-content-space-between
+@each $axis in $flex-axis {
+  @each $position in $flex-positions {
+    .#{$axis}-#{$position} {
+      #{$axis}: $position;
+    }
+  }
+}

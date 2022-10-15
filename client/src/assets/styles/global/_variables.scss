@@ -1,0 +1,31 @@
+// Colors
+$charcoal: #21212d;
+$grey: #2c2c38;
+// $light-grey: #54545e;
+$light-grey: #343440;
+$lighter-grey: #989ba7;
+$purple: #645ec8;
+
+// Spacing
+$spacing-tiny: 0.25rem;
+$spacing-small: 0.5rem;
+$spacing-default: 1rem;
+$spacing-medium: 1.5rem;
+$spacing-large: 2rem;
+
+// Borders
+$border: 2px solid $light-grey;
+
+// Border Radius
+$rounded-corners: 50px;
+$border-radius: 4px;
+
+// Utility class lists
+$properties: margin, padding;
+$positions: top, right, bottom, left;
+$spacings: tiny, small, default, medium, large, none, auto;
+
+$border-colors: "white";
+$background-colors: "turquoise", "purple", "green";
+$flex-axis: justify-content, align-items;
+$flex-positions: flex-start, flex-end, space-between, space-around, center;
