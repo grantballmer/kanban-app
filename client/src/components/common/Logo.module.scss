@@ -1,0 +1,24 @@
+@import "../../assets/styles/main.scss";
+
+.span {
+  width: 5px;
+  height: 28px;
+  background-color: $purple;
+  margin-right: $spacing-tiny;
+  border-radius: 3px;
+
+  &:nth-of-type(2) {
+    opacity: 0.75;
+  }
+
+  &:nth-of-type(3) {
+    opacity: 0.5;
+    margin-right: $spacing-small;
+  }
+}
+
+.title {
+  color: white;
+  font-size: 2.2rem;
+  font-weight: 700;
+}

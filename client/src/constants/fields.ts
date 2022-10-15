@@ -22,6 +22,7 @@ export const FIELDS = {
       type: "email",
       label: "Email",
       placeholder: "Enter your email",
+      required: true,
     },
     {
       id: "password",
@@ -29,6 +30,33 @@ export const FIELDS = {
       type: "password",
       label: "Password",
       placeholder: "Enter your password",
+      required: true,
+    },
+  ],
+  SIGNUP: [
+    {
+      id: "email",
+      name: "email",
+      type: "email",
+      label: "Email",
+      placeholder: "Enter your email",
+      required: true,
+    },
+    {
+      id: "password",
+      name: "password",
+      type: "password",
+      label: "Password",
+      placeholder: "Enter your password",
+      required: true,
+    },
+    {
+      id: "confirmPassword",
+      name: "confirmPassword",
+      type: "password",
+      label: "Confirm Password",
+      placeholder: "Confirm your password",
+      required: true,
     },
   ],
 };

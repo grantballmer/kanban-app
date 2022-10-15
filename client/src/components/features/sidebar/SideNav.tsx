@@ -3,8 +3,8 @@ import styles from "./SideNav.module.scss";
 import { Link, useLocation } from "react-router-dom";
 import { BsGrid1X2 } from "react-icons/bs";
 
-import Modal from "../common/modal/_Modal";
-import CreateBoardContent from "../features/sidebar/modal/CreateBoardContent";
+import Modal from "../../common/modal/_Modal";
+import CreateBoardContent from "../../features/sidebar/modal/CreateBoardContent";
 
 const SideNav = () => {
   const [showModal, setShowModal] = useState(false);
@@ -33,6 +33,7 @@ const SideNav = () => {
       <Modal isOpen={showModal} setIsOpen={setShowModal} className="generic">
         <CreateBoardContent />
       </Modal>
+
       <ul>
         {links.map((link) => (
           <li

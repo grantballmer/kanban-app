@@ -3,4 +3,66 @@
 .form-group {
   display: flex;
   flex-direction: column;
+  position: relative;
+  // height: 40px;
+  margin-bottom: $spacing-default;
+  border-radius: $border-radius;
+
+  input {
+    height: 40px;
+    background-color: transparent;
+    outline: 0;
+    border: 2px solid white;
+    padding: $spacing-small;
+    color: white;
+    border-radius: $border-radius;
+    transition: border 0.2s;
+    font-size: 1rem;
+
+    &::placeholder {
+      display: none;
+      opacity: 0;
+    }
+
+    &:focus {
+      border-color: $purple;
+    }
+
+    &:not(input[value=""]) + label {
+      transform: translateY(-10px);
+      font-size: 0.9rem;
+      background-color: $grey;
+      color: white;
+    }
+
+    &:focus + label {
+      transform: translateY(-10px);
+      font-size: 0.9rem;
+      background-color: $grey;
+      color: $purple !important;
+    }
+  }
+
+  label {
+    position: absolute;
+    top: 0;
+    transform: translateY(10px);
+    transition: transform 0.2s, font-size 0.2s, color 0.2s;
+    margin-left: $spacing-small;
+    background-color: $grey;
+  }
+}
+
+.form-group.has-error {
+  input {
+    border-color: $error-red;
+
+    &:focus + label {
+      color: $error-red !important;
+    }
+  }
+
+  label {
+    color: $error-red !important;
+  }
 }

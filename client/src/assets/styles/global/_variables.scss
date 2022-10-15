@@ -5,6 +5,9 @@ $grey: #2c2c38;
 $light-grey: #343440;
 $lighter-grey: #989ba7;
 $purple: #645ec8;
+$purple-hover: #726ce0;
+
+$error-red: #d32f2f;
 
 // Spacing
 $spacing-tiny: 0.25rem;
@@ -22,7 +25,7 @@ $border-radius: 4px;
 
 // Utility class lists
 $properties: margin, padding;
-$positions: top, right, bottom, left;
+$positions: top, right, bottom, left, all;
 $spacings: tiny, small, default, medium, large, none, auto;
 
 $border-colors: "white";

@@ -27,3 +27,7 @@ export interface CreateBoardData {
   board: string;
   column: string;
 }
+
+export interface AuthState {
+  userId: string | null;
+}

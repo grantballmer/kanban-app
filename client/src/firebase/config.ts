@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyAGeDaJWXwylhWfjIqdOQGfM-QUhHnQYws",
   authDomain: "kanban-9a7d8.firebaseapp.com",
   projectId: "kanban-9a7d8",
@@ -13,5 +14,5 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export default app;
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);

@@ -8,20 +8,25 @@ const DynamicFormGroup = ({
   value,
   label,
   placeholder,
+  required,
   onChangeHandler,
+  errors,
 }: DynamicFormGroupType) => {
+  const error = errors.find((error) => error.field === id);
   return (
-    <div className="form-group">
-      <label htmlFor={id}>{label}</label>
-
+    <div className={`form-group ${error ? "has-error" : ""}`}>
       <input
         type={type}
         id={id}
         name={name}
         placeholder={placeholder}
         value={value}
+        required={required}
         onChange={onChangeHandler}
       />
+
+      <label htmlFor={id}>{label}</label>
+      {error && <p className="error">{error.message}</p>}
     </div>
   );
 };

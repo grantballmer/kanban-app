@@ -8,9 +8,16 @@ import DynamicFormGroup from "./DynamicFormGroup";
 
 type InitialStateType = { [key: string]: string };
 
-const Form = ({ fields, reduxFunc, children, redirectPath }: FormType) => {
+const Form = ({
+  fields,
+  reduxFunc,
+  validationFunc,
+  children,
+  redirectPath,
+}: FormType) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [errors, setErrors] = useState([]);
   // Set initial state of form input values
   const initialState: InitialStateType = {};
 
@@ -27,12 +34,17 @@ const Form = ({ fields, reduxFunc, children, redirectPath }: FormType) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const validationErrors = validationFunc(inputField);
+
+    if (validationErrors) {
+      setErrors(validationErrors);
+    }
     // dispatch(updateLoading(true));
     const response = await dispatch(reduxFunc(inputField));
-    // dispatch(updateLoading(false));
-    if (response.type.includes("fulfilled")) {
-      navigate({ pathname: redirectPath });
-    }
+    // // dispatch(updateLoading(false));
+    // if (response.type.includes("fulfilled")) {
+    //   navigate({ pathname: redirectPath });
+    // }
   };
   const FormGroups = fields.map((field: FieldType, index: number) => (
     <DynamicFormGroup
@@ -43,7 +55,9 @@ const Form = ({ fields, reduxFunc, children, redirectPath }: FormType) => {
       label={field.label}
       placeholder={field.placeholder}
       value={inputField[field.id]}
+      required={field.required || false}
       onChangeHandler={inputsHandler}
+      errors={errors}
     />
   ));
 
@@ -52,9 +66,11 @@ const Form = ({ fields, reduxFunc, children, redirectPath }: FormType) => {
       {children}
       {FormGroups}
 
-      <button type="submit" className="btn btn__primary btn__full-width">
-        Submit
-      </button>
+      <div className="flex-row justify-content-flex-end">
+        <button type="submit" className="btn btn-primary btn__full-width">
+          Submit
+        </button>
+      </div>
     </form>
   );
 };

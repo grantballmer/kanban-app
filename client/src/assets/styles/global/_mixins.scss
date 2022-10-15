@@ -2,17 +2,41 @@
 // ex. element with margin-left__tiny = margin-left: .25rem;
 @mixin property($property, $position, $spacing) {
   @if $spacing == "tiny" {
-    #{$property + '-' + $position}: $spacing-tiny;
+    @if $position == "all" {
+      #{$property}: $spacing-tiny;
+    } @else {
+      #{$property + '-' + $position}: $spacing-tiny;
+    }
   } @else if $spacing == "small" {
-    #{$property + '-' + $position}: $spacing-small;
+    @if $position == "all" {
+      #{$property}: $spacing-small;
+    } @else {
+      #{$property + '-' + $position}: $spacing-small;
+    }
   } @else if $spacing == "default" {
-    #{$property + '-' + $position}: $spacing-default;
+    @if $position == "all" {
+      #{$property}: $spacing-default;
+    } @else {
+      #{$property + '-' + $position}: $spacing-default;
+    }
   } @else if $spacing == "medium" {
-    #{$property + '-' + $position}: $spacing-medium;
+    @if $position == "all" {
+      #{$property}: $spacing-medium;
+    } @else {
+      #{$property + '-' + $position}: $spacing-medium;
+    }
   } @else if $spacing == "large" {
-    #{$property + '-' + $position}: $spacing-large;
+    @if $position == "all" {
+      #{$property}: $spacing-large;
+    } @else {
+      #{$property + '-' + $position}: $spacing-large;
+    }
   } @else if $spacing == "none" {
-    #{$property + '-' + $position}: 0;
+    @if $position == "all" {
+      #{$property}: 0;
+    } @else {
+      #{$property + '-' + $position}: 0;
+    }
   } @else if $spacing == "auto" {
     #{$property + '-' + $position}: auto;
   }

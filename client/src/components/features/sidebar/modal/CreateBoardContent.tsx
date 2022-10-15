@@ -14,7 +14,11 @@ const CreateBoardContent = () => {
         <MdCreate color="white" />
       </ModalHeader>
       <ModalBody>
-        <Form fields={FIELDS.CREATE_BOARD} reduxFunc={createBoard} />
+        <Form
+          fields={FIELDS.CREATE_BOARD}
+          reduxFunc={createBoard}
+          validationFunc={() => console.log("here")}
+        />
       </ModalBody>
     </React.Fragment>
   );

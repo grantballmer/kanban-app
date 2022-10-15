@@ -1,5 +1,10 @@
 a {
   text-decoration: none;
+  color: $purple;
+
+  &:hover {
+    color: $purple-hover;
+  }
 }
 
 .bold-heading {
@@ -14,4 +19,8 @@ a {
 .subheading {
   color: $lighter-grey;
   font-size: 0.9rem;
+}
+
+.error {
+  color: $error-red;
 }

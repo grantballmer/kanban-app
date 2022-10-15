@@ -1,4 +1,4 @@
-@import "../../assets/styles/main.scss";
+@import "../../../assets/styles/main.scss";
 
 .box {
   width: 20vw;
@@ -6,4 +6,5 @@
   background-color: $grey;
   border: $border;
   color: white;
+  padding: $spacing-default;
 }
