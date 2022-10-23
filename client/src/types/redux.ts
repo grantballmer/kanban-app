@@ -30,4 +30,5 @@ export interface CreateBoardData {
 
 export interface AuthState {
   userId: string | null;
+  loading: boolean;
 }

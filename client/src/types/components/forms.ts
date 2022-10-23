@@ -1,11 +1,15 @@
 import { Props } from "../props";
 import { FieldError } from "../common";
+import { ButtonProps } from "../components";
 
 export interface FormType extends Props {
   fields: FieldType[];
   reduxFunc: Function;
-  validationFunc: Function;
   redirectPath?: string;
+  validationFunc: Function;
+  buttons?: ButtonProps[];
+  setSuccess?: Function;
+  deleteInputFunc?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export interface FieldType {
@@ -14,6 +18,8 @@ export interface FieldType {
   type: string;
   label: string;
   placeholder: string;
+  deletable?: boolean;
+  deleteInputFunc?: React.MouseEventHandler<HTMLButtonElement>;
   required?: boolean;
 }
 
@@ -25,6 +31,8 @@ export interface DynamicFormGroupType {
   placeholder: string;
   required?: boolean;
   value: string;
+  deletable?: boolean;
+  deleteInputFunc?: React.MouseEventHandler<HTMLButtonElement>;
   onChangeHandler: React.ChangeEventHandler<HTMLInputElement>;
   errors: FieldError[];
 }

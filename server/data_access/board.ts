@@ -1,10 +1,11 @@
 import { prisma } from "../app";
 
-export const createBoard = async (title: string) => {
+export const createBoard = async (title: string, userId: string) => {
   try {
     const response = prisma.board.create({
       data: {
         title: title,
+        user_id: userId,
       },
     });
 

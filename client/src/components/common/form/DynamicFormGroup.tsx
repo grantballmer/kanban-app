@@ -1,5 +1,7 @@
 import React from "react";
 import { DynamicFormGroupType } from "../../../types/components/forms";
+import { GiCancel } from "react-icons/gi";
+import Button from "../Button";
 
 const DynamicFormGroup = ({
   id,
@@ -9,6 +11,8 @@ const DynamicFormGroup = ({
   label,
   placeholder,
   required,
+  deletable,
+  deleteInputFunc,
   onChangeHandler,
   errors,
 }: DynamicFormGroupType) => {
@@ -27,6 +31,17 @@ const DynamicFormGroup = ({
 
       <label htmlFor={id}>{label}</label>
       {error && <p className="error">{error.message}</p>}
+
+      {deletable && (
+        <Button
+          type="button"
+          buttonStyle="remove-styling"
+          className="cancel-button"
+          onClick={deleteInputFunc}
+        >
+          <GiCancel size={"1.2rem"} />
+        </Button>
+      )}
     </div>
   );
 };

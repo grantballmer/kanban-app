@@ -2,8 +2,8 @@ import { createBoard, createColumn } from "../data_access/board";
 import { ColumnSchema } from "../types/board";
 
 export const boardService = {
-  create: async (title: string) => {
-    const response = await createBoard(title);
+  create: async (title: string, userId: string) => {
+    const response = await createBoard(title, userId);
 
     return response;
   },

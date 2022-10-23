@@ -1,10 +1,11 @@
 import axios from "axios";
 
 class BoardApi {
-  static async createBoard(board: string) {
+  static async createBoard(board: string, userId: string) {
     try {
       const response = await axios.post("/board/", {
         title: board,
+        userId,
       });
 
       return response;
@@ -14,7 +15,6 @@ class BoardApi {
   }
 
   static async createColumn(column: string, index: number, boardId: number) {
-    console.log(column, boardId);
     try {
       const response = await axios.post(`/board/${boardId}/column`, {
         title: column,

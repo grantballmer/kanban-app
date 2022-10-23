@@ -1,13 +1,35 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { AuthState } from "../types/redux";
 import { auth } from "../firebase/config";
 import { AuthApi } from "../api/auth";
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
+
+interface CreateUserResponse extends AxiosResponse {
+  id: string;
+  team_id: string | null;
+}
+
+export const getUserData = createAsyncThunk(
+  "auth/getuser",
+  async (id: string) => {
+    try {
+      const { data } = (await AuthApi.getUserData(id)) as AxiosResponse;
+
+      return data.response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
 
 export const signup = createAsyncThunk(
   "auth/signup",
-  async ({ email, password }: { email: string; password: string }, {}) => {
+  async ({ email, password }: { email: string; password: string }) => {
     try {
       const firebaseResponse = await createUserWithEmailAndPassword(
         auth,
@@ -15,34 +37,96 @@ export const signup = createAsyncThunk(
         password
       );
 
-      const dbResponse = await AuthApi.createUser(firebaseResponse.user.uid);
+      const { data } = (await AuthApi.createUser(
+        firebaseResponse.user.uid
+      )) as AxiosResponse;
 
-      return dbResponse;
+      return data.response;
     } catch (err) {
       console.log(err);
     }
   }
 );
 
+export const login = createAsyncThunk(
+  "auth/login",
+  async ({ email, password }: { email: string; password: string }, {}) => {
+    try {
+      const firebaseResponse = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const { data } = (await AuthApi.getUserData(
+        firebaseResponse.user.uid
+      )) as AxiosResponse;
+
+      return data.response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+export const logout = createAsyncThunk("auth/logout", async (data, {}) => {
+  try {
+    await signOut(auth);
+
+    return;
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 const initialState = {
   userId: null,
+  loading: true,
 } as AuthState;
 
 export const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action) => {
+      state.userId = action.payload;
+    },
+    setLoading: (state, action) => {
+      console.log(action);
+      state.loading = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(signup.fulfilled, (state, { payload }) => {
-        console.log(payload);
+        const { id } = payload as CreateUserResponse;
+        state.userId = id;
       })
       .addCase(signup.rejected, (state, action) => {
+        console.log(action);
+      })
+      .addCase(login.fulfilled, (state, { payload }) => {
+        const { id } = payload as CreateUserResponse;
+        state.userId = id;
+      })
+      .addCase(login.rejected, (state, action) => {
+        console.log(action);
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.userId = null;
+      })
+      .addCase(logout.rejected, (state, action) => {
+        console.log(action);
+      })
+      .addCase(getUserData.fulfilled, (state, { payload }) => {
+        state.userId = payload.id;
+      })
+      .addCase(getUserData.rejected, (state, action) => {
         console.log(action);
       });
   },
 });
 
 // Action creators are generated for each case reducer function
-
+export const { setUser, setLoading } = authSlice.actions;
 export default authSlice.reducer;

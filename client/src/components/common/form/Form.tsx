@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FormType, FieldType } from "../../../types/components/forms";
 
 import DynamicFormGroup from "./DynamicFormGroup";
+import Button from "../Button";
 
 type InitialStateType = { [key: string]: string };
 
@@ -13,10 +14,14 @@ const Form = ({
   reduxFunc,
   validationFunc,
   children,
+  buttons,
   redirectPath,
+  setSuccess,
+  deleteInputFunc,
 }: FormType) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState([]);
   // Set initial state of form input values
   const initialState: InitialStateType = {};
@@ -33,18 +38,34 @@ const Form = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const validationErrors = validationFunc(inputField);
 
     if (validationErrors) {
       setErrors(validationErrors);
     }
-    // dispatch(updateLoading(true));
-    const response = await dispatch(reduxFunc(inputField));
-    // // dispatch(updateLoading(false));
-    // if (response.type.includes("fulfilled")) {
-    //   navigate({ pathname: redirectPath });
-    // }
+
+    try {
+      const response = await dispatch(reduxFunc(inputField));
+      setIsSubmitting(false);
+
+      if (setSuccess) {
+        setSuccess(true);
+      }
+
+      if (response.type.includes("fulfilled") && redirectPath) {
+        setTimeout(
+          () => {
+            navigate({ pathname: redirectPath });
+          },
+          setSuccess ? 1500 : 10
+        );
+      }
+    } catch (err) {
+      setIsSubmitting(false);
+      console.log(err);
+    }
   };
   const FormGroups = fields.map((field: FieldType, index: number) => (
     <DynamicFormGroup
@@ -56,6 +77,8 @@ const Form = ({
       placeholder={field.placeholder}
       value={inputField[field.id]}
       required={field.required || false}
+      deletable={field.deletable}
+      deleteInputFunc={deleteInputFunc}
       onChangeHandler={inputsHandler}
       errors={errors}
     />
@@ -66,10 +89,30 @@ const Form = ({
       {children}
       {FormGroups}
 
-      <div className="flex-row justify-content-flex-end">
-        <button type="submit" className="btn btn-primary btn__full-width">
-          Submit
-        </button>
+      <div
+        className={`flex-row justify-content-${
+          buttons && buttons.length > 1 ? "space-between" : "flex-end"
+        }`}
+      >
+        {buttons &&
+          buttons.map((button) => (
+            <Button
+              type={button.type}
+              buttonStyle={button.buttonStyle}
+              text={button.text}
+              onClick={button.onClick}
+              isLoading={button.type === "submit" ? isSubmitting : false}
+            />
+          ))}
+
+        {!buttons && (
+          <Button
+            type={"submit"}
+            buttonStyle={"primary"}
+            text={"Submit"}
+            isLoading={isSubmitting}
+          />
+        )}
       </div>
     </form>
   );

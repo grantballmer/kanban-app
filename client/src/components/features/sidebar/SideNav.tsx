@@ -30,7 +30,7 @@ const SideNav = () => {
 
   return (
     <nav className={`${styles["side-nav"]} margin-top-default`}>
-      <Modal isOpen={showModal} setIsOpen={setShowModal} className="generic">
+      <Modal isOpen={showModal} setIsOpen={setShowModal}>
         <CreateBoardContent />
       </Modal>
 
@@ -52,12 +52,13 @@ const SideNav = () => {
         ))}
 
         <li
-          className={`${styles.new} ${styles["nav-item"]} flex-row align-items-center`}
+          className={`${styles["nav-item"]} ${styles["create-new"]} flex-row align-items-center`}
         >
           <BsGrid1X2 className="margin-right-small" color={"#645ec8"} />
           <button
-            className="btn btn-remove-styling"
+            className="btn btn-remove-styling purple"
             onClick={() => setShowModal(true)}
+            tabIndex={0}
           >
             + Create New Board
           </button>

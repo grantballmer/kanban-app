@@ -6,7 +6,8 @@ export default {
   createBoard: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id, title } = (await boardService.create(
-        req.body.title
+        req.body.title,
+        req.body.userId
       )) as BoardResponse;
 
       return res.status(200).json({

@@ -1,0 +1,11 @@
+@import "../../assets/styles/main.scss";
+
+.dropdown {
+  min-width: 150px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 105%);
+  background-color: white;
+  color: $purple;
+}

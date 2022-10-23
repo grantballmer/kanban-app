@@ -7,4 +7,19 @@
   border: $border;
   color: white;
   padding: $spacing-default;
+  margin-bottom: $spacing-default;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-default;
+}
+
+.text {
+  margin-left: $spacing-tiny;
+}
+
+.body {
+  margin-bottom: $spacing-default;
 }

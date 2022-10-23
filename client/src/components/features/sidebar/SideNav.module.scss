@@ -33,6 +33,10 @@
   }
 }
 
-.new {
-  color: $purple;
+.create-new {
+  &:hover {
+    svg {
+      fill: $purple;
+    }
+  }
 }

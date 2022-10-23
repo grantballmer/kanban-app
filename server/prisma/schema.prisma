@@ -11,10 +11,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Boards 
 model Board {
   id Int @id @default(autoincrement())
   title String
   columns Column[]
+  user_id String?
+  user User? @relation(fields: [user_id], references: [id])
+  team_id Int?
+  team Team? @relation(fields: [team_id], references: [id])
 }
 
 model Column {
@@ -32,7 +37,7 @@ model Task {
   index Int
   column_id Int
   column Column @relation(fields: [column_id], references: [id])
-  subtasks SubTask[]
+  subtasks SubTask[] 
 }
 
 model SubTask {
@@ -40,4 +45,18 @@ model SubTask {
   title String
   task_id Int
   task Task @relation(fields: [task_id], references: [id])
+}
+
+// Auth 
+model Team {
+  id Int @id @default(autoincrement())
+  members User[]
+  boards Board[]
+}
+
+model User {
+  id String @id
+  team_id Int?
+  team Team? @relation(fields: [team_id], references: [id])
+  boards Board[]
 }

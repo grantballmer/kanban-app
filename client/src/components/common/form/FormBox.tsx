@@ -10,7 +10,7 @@ const FormBox = ({ size, children }: FormBoxType) => {
 
 const Header = ({ children, className, text }: Text) => {
   return (
-    <header className={`flex-row align-items-center ${className}`}>
+    <header className={`${styles.header} ${className}`}>
       {children}
       <h1 className={styles.text}>{text}</h1>
     </header>
@@ -18,7 +18,7 @@ const Header = ({ children, className, text }: Text) => {
 };
 
 const Body = ({ children, className }: Props) => {
-  return <div className={className}>{children}</div>;
+  return <div className={`${styles.body} ${className}`}>{children}</div>;
 };
 
 FormBox.Header = Header;

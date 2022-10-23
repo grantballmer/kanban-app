@@ -4,6 +4,14 @@ export interface ClassName extends Props {
   className?: string;
 }
 
+export interface ButtonProps extends ClassName {
+  type: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
+  buttonStyle?: "primary" | "secondary" | "remove-styling";
+  text?: string;
+  isLoading?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+}
+
 export interface HeadingType extends Props {
   displayDot: boolean;
   color?: string;
@@ -21,12 +29,12 @@ export interface CardType {
   subtasks: number;
 }
 
-export interface ModalType extends Props {
+export interface ModalProps extends Props {
   isOpen: boolean;
   setIsOpen: Function;
 }
 
-export interface ModalHeaderType extends Props {
+export interface ModalHeaderProps extends Props {
   title: string;
 }
 
