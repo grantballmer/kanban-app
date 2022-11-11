@@ -1,5 +1,5 @@
 import React from "react";
-import { Props } from "../../types/props";
+import { Props } from "../../types/common";
 import styles from "./Logo.module.scss";
 
 const Logo = ({ className }: Props) => {

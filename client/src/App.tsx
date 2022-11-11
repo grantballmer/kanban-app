@@ -22,6 +22,7 @@ function App() {
         {!loading && (
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/boards/:boardTitle" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/team" element={<Team />} />

@@ -3,7 +3,7 @@ import { MdCreate } from "react-icons/md";
 import { FIELDS } from "../../../constants/fields";
 
 import Modal from "../../common/modal/_Modal";
-import Form from "../../common/form/Form";
+import Form from "../../form/Form";
 import { createTeam } from "../../../redux/team";
 import { COMMON } from "../../../constants/common";
 

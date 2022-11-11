@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import "./form.scss";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FormType, FieldType } from "../../../types/components/forms";
+import { FormType, FieldType } from "../../types/components/forms";
 
 import DynamicFormGroup from "./DynamicFormGroup";
-import Button from "../Button";
+import Button from "../common/Button";
+import { FIELD_TYPES } from "../../constants/fields";
+import Radio from "./fields/Radio";
 
 type InitialStateType = { [key: string]: string };
 
@@ -67,22 +69,29 @@ const Form = ({
       console.log(err);
     }
   };
-  const FormGroups = fields.map((field: FieldType, index: number) => (
-    <DynamicFormGroup
-      key={field.id + index}
-      type={field.type}
-      id={field.id}
-      name={field.name}
-      label={field.label}
-      placeholder={field.placeholder}
-      value={inputField[field.id]}
-      required={field.required || false}
-      deletable={field.deletable}
-      deleteInputFunc={deleteInputFunc}
-      onChangeHandler={inputsHandler}
-      errors={errors}
-    />
-  ));
+  const FormGroups = fields.map((field: FieldType, index: number) => {
+    switch (field.type) {
+      case FIELD_TYPES.RADIO:
+        return <Radio />;
+      default:
+        return (
+          <DynamicFormGroup
+            key={field.id + index}
+            type={field.type}
+            id={field.id}
+            name={field.name}
+            label={field.label}
+            placeholder={field.placeholder}
+            value={inputField[field.id]}
+            required={field.required || false}
+            deletable={field.deletable}
+            deleteInputFunc={deleteInputFunc}
+            onChangeHandler={inputsHandler}
+            errors={errors}
+          />
+        );
+    }
+  });
 
   return (
     <form onSubmit={handleSubmit}>

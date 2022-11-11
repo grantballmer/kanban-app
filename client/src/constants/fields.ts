@@ -1,4 +1,11 @@
-const FIELD_TYPES = {
+export const FIELD_TYPES = {
+  TEXT: "text",
+  EMAIL: "email",
+  PASSWORD: "password",
+  RADIO: "radio",
+};
+
+const STATIC_FIELDS = {
   EMAIL: {
     id: "email",
     name: "email",
@@ -50,11 +57,43 @@ export const FIELDS = {
       placeholder: "Type here",
     },
   ],
-  LOGIN: [FIELD_TYPES.EMAIL, FIELD_TYPES.PASSWORD],
+  CREATE_TASK: [
+    {
+      id: "columns",
+      type: "radio",
+      name: "columns",
+      label: "Select which column to assign tasks to: ",
+      placeholder: "",
+    },
+    {
+      id: "task-1",
+      name: "task-1",
+      type: "text",
+      label: "Task 1 Name",
+      placeholder: "Type here",
+    },
+  ],
+  CREATE_COLUMN: [
+    {
+      id: "column",
+      name: "column",
+      type: "text",
+      label: "Column Name",
+      placeholder: "Type here",
+    },
+    {
+      id: "task-1",
+      name: "task-1",
+      type: "text",
+      label: "Task 1 Name",
+      placeholder: "Type here",
+    },
+  ],
+  LOGIN: [STATIC_FIELDS.EMAIL, STATIC_FIELDS.PASSWORD],
   SIGNUP: [
-    FIELD_TYPES.EMAIL,
-    FIELD_TYPES.PASSWORD,
-    FIELD_TYPES.CONFIRM_PASSWORD,
+    STATIC_FIELDS.EMAIL,
+    STATIC_FIELDS.PASSWORD,
+    STATIC_FIELDS.CONFIRM_PASSWORD,
   ],
   JOIN_TEAM: [
     {
@@ -65,11 +104,11 @@ export const FIELDS = {
       placeholder: "Enter the team name",
       required: true,
     },
-    FIELD_TYPES.PASSWORD,
+    STATIC_FIELDS.PASSWORD,
   ],
   CREATE_TEAM: [
-    FIELD_TYPES.TEAM,
-    FIELD_TYPES.PASSWORD,
-    FIELD_TYPES.CONFIRM_PASSWORD,
+    STATIC_FIELDS.TEAM,
+    STATIC_FIELDS.PASSWORD,
+    STATIC_FIELDS.CONFIRM_PASSWORD,
   ],
 };

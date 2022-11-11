@@ -16,8 +16,9 @@ model Board {
   id Int @id @default(autoincrement())
   title String
   columns Column[]
-  user_id String?
-  user User? @relation(fields: [user_id], references: [id])
+  href String
+  user_id String
+  user User @relation(fields: [user_id], references: [id])
   team_id Int?
   team Team? @relation(fields: [team_id], references: [id])
 }

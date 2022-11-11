@@ -1,10 +1,13 @@
 export interface BoardsState {
   boards: BoardsType[];
+  activeBoard: BoardsType | null;
 }
 
 export interface BoardsType {
   id: number;
   title: string;
+  userId?: string;
+  href: string;
   columns: ColumnType[];
 }
 
@@ -14,10 +17,14 @@ export interface ColumnType {
   index: number;
   boardId: number;
   tasks?: TaskType[];
+  children?: React.ReactNode;
 }
 
-export interface TaskType {
+export interface TaskType extends TaskRequest {
   id: number;
+}
+
+export interface TaskRequest {
   title: string;
   index: number;
   columnId: number;

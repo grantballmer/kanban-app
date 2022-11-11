@@ -1,10 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-  BoardsState,
-  BoardsType,
-  ColumnType,
-  CreateBoardData,
-} from "../types/redux";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { BoardsState, BoardsType, ColumnType } from "../types/redux";
+import { useLocation } from "react-router-dom";
 
 import BoardApi from "../api/board";
 import { AxiosResponse } from "axios";
@@ -25,6 +21,7 @@ export const createBoard = createAsyncThunk(
     const columns = dataArr.filter(
       (item) => !Object.keys(item).includes("board")
     );
+    const href = `/boards/${board.toLowerCase().replace(" ", "-")}`;
 
     columns.sort((a, b) => {
       const keyA = Object.keys(a)[0];
@@ -37,7 +34,8 @@ export const createBoard = createAsyncThunk(
     try {
       const { data: boardData } = (await BoardApi.createBoard(
         board,
-        auth.userId!
+        auth.userId!,
+        href
       )) as AxiosResponse;
 
       const columnsDataArr: ColumnType[] = [];
@@ -71,14 +69,117 @@ export const createBoard = createAsyncThunk(
   }
 );
 
+export const createColumn = createAsyncThunk(
+  "column/create",
+  async (data: string[], { getState }) => {
+    try {
+      const {
+        boards: { activeBoard },
+      } = getState() as RootState;
+
+      // Transform form object values into array
+      const dataArr = Object.entries(data).map(([key, value]) => {
+        return {
+          [key]: value,
+        };
+      });
+
+      const column = dataArr.find((item) => item["column"])!.column;
+      const tasksArr = dataArr.filter(
+        (item) => !Object.keys(item).includes("column")
+      );
+
+      // Create column
+      const { data: columnResponseData } = (await BoardApi.createColumn(
+        column,
+        activeBoard!.columns.length,
+        activeBoard!.id
+      )) as AxiosResponse;
+
+      // Create tasks with returned columnId
+      const tasks = tasksArr.map((task, index) => ({
+        title: task[`task-${index + 1}`],
+        index,
+        columnId: columnResponseData.id,
+      }));
+
+      // Create tasks with returned columnId
+      (await BoardApi.createMultipleTasks(
+        tasks,
+        columnResponseData.id
+      )) as AxiosResponse;
+
+      // Get updated user data after column and tasks have been created
+      const { data: boardResponseData } = (await BoardApi.getBoard(
+        activeBoard!.id
+      )) as AxiosResponse;
+
+      return boardResponseData;
+    } catch (err) {}
+
+    // const values = Object.values(data);
+    // console.log(values);
+    // console.log(getState());
+    // const tasksArr = [...values.slice(1)] as string[];
+    // const tasks = tasksArr.map((task, index) => {
+    //   return {
+    //     title: task,
+    //     index,
+    //   }
+    // })
+    // try {
+    //   const response = BoardApi.createTask(title, index, columnId);
+
+    //   return response;
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  }
+);
+
+export const createTask = createAsyncThunk(
+  "task/create",
+  async (
+    // {
+    //   title,
+    //   index,
+    //   columnId,
+    // }: { title: string; index: number; columnId: number },
+    data: any,
+    { getState }
+  ) => {
+    const values = Object.values(data);
+    console.log(values);
+    console.log(getState());
+    const location = useLocation();
+    console.log(location);
+    // try {
+    //   const response = BoardApi.createTask(title, index, columnId);
+
+    //   return response;
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  }
+);
+
 const initialState = {
   boards: [],
+  activeBoard: null,
 } as BoardsState;
 
 export const boardsSlice = createSlice({
   name: "boards",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    updateBoards: (state, action) => {
+      state.boards = action.payload;
+    },
+    setActiveBoard: (state, action) => {
+      console.log(action);
+      state.activeBoard = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createBoard.fulfilled, (state, { payload }) => {
@@ -89,11 +190,30 @@ export const boardsSlice = createSlice({
       })
       .addCase(createBoard.rejected, (state, action) => {
         console.log(action);
+      })
+      .addCase(createColumn.fulfilled, (state, { payload }) => {
+        const newState = state.boards.filter(
+          (board) => board.id !== payload.id
+        );
+        state.boards = [...newState, payload];
+        state.activeBoard = payload;
+      })
+      .addCase(createColumn.rejected, (state, action) => {
+        console.log(action);
       });
+    // .addCase(updateBoard.fulfilled, (state, { payload }) => {
+    //   state.boards = payload;
+    //   // if (payload) {
+    //   //   state.boards.push(payload);
+    //   // }
+    // })
+    // .addCase(updateBoard.rejected, (state, action) => {
+    //   console.log(action);
+    // });
   },
 });
 
 // Action creators are generated for each case reducer function
-// export const { updateDrivers } = boardsSlice.actions;
+export const { updateBoards, setActiveBoard } = boardsSlice.actions;
 
 export default boardsSlice.reducer;

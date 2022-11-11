@@ -1,4 +1,7 @@
-import { Props } from "./props";
+export interface Props {
+  children?: React.ReactNode;
+  className?: string;
+}
 
 export interface Text extends Props {
   text: string;

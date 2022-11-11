@@ -17,6 +17,7 @@ export const createTeam = createAsyncThunk(
 
 const initialState = {
   boards: [],
+  activeBoard: null,
 } as BoardsState;
 
 export const boardsSlice = createSlice({

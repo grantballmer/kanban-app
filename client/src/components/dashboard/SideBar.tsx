@@ -6,7 +6,7 @@ import Logo from "../common/Logo";
 import SideNav from "../features/sidebar/SideNav";
 import Toggles from "../features/sidebar/Toggles";
 
-const SideBar = ({ className }: DashboardChild) => {
+const SideBar = ({ className, board }: DashboardChild) => {
   return (
     <section className={`${className}`}>
       <Logo className="padding-all-default" />

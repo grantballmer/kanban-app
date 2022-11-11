@@ -1,25 +1,9 @@
 import React from "react";
-import { DynamicFormGroupType } from "../../../types/components/forms";
-import { GiCancel } from "react-icons/gi";
-import Button from "../Button";
 
-const DynamicFormGroup = ({
-  id,
-  name,
-  type,
-  value,
-  label,
-  placeholder,
-  required,
-  deletable,
-  deleteInputFunc,
-  onChangeHandler,
-  errors,
-}: DynamicFormGroupType) => {
-  const error = errors.find((error) => error.field === id);
+const Radio = (options: any) => {
   return (
-    <div className={`form-group ${error ? "has-error" : ""}`}>
-      <input
+    <div className={`form-group form-group__radio`}>
+      {/* <input
         type={type}
         id={id}
         name={name}
@@ -41,9 +25,9 @@ const DynamicFormGroup = ({
         >
           <GiCancel size={"1.2rem"} />
         </Button>
-      )}
+      )} */}
     </div>
   );
 };
 
-export default DynamicFormGroup;
+export default Radio;

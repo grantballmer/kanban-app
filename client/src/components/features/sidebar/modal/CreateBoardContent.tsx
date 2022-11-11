@@ -4,7 +4,7 @@ import { createBoard } from "../../../../redux/boards";
 import { ButtonProps } from "../../../../types/components";
 
 import Modal from "../../../common/modal/_Modal";
-import Form from "../../../common/form/Form";
+import Form from "../../../form/Form";
 import { FIELDS } from "../../../../constants/fields";
 
 const CreateBoardContent = () => {
@@ -42,7 +42,7 @@ const CreateBoardContent = () => {
   return (
     <React.Fragment>
       <Modal.Header title={"Create A New Board"}>
-        <MdCreate color="white" />
+        <MdCreate color="white" size={"1.4rem"} />
       </Modal.Header>
       <Modal.Body>
         <Form

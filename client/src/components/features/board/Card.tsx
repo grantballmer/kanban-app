@@ -1,13 +1,23 @@
 import React from "react";
 import styles from "./Card.module.scss";
-import { CardType } from "../../../types/components";
+import { Draggable } from "@hello-pangea/dnd";
+import { TaskType } from "../../../types/redux";
 
-const Card = ({ title, subtasks }: CardType) => {
+const Card = ({ title, id, index }: TaskType) => {
   return (
-    <article className={styles.card}>
-      <p className="bold-heading">{title}</p>
-      <p className="subheading">0 of {subtasks} subtasks</p>
-    </article>
+    <Draggable draggableId={String(id)} index={index}>
+      {(provided) => (
+        <article
+          className={styles.card}
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <p className="bold-heading">{title}</p>
+          {/* <p className="subheading">0 of {subtasks} subtasks</p> */}
+        </article>
+      )}
+    </Draggable>
   );
 };
 

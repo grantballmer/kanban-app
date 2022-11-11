@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./FormBox.module.scss";
-import { FormBoxType } from "../../../types/components/forms";
-import { Text } from "../../../types/common";
-import { Props } from "../../../types/props";
+import { FormBoxType } from "../../types/components/forms";
+import { Props, Text } from "../../types/common";
 
 const FormBox = ({ size, children }: FormBoxType) => {
   return <section className={styles.box}>{children}</section>;

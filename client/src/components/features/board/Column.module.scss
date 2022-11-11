@@ -2,4 +2,16 @@
 
 .column {
   max-width: 285px;
+  min-width: 250px;
+  margin-right: $spacing-large;
+}
+
+.add-column {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $dark-grey;
+  font-weight: 700;
+  cursor: pointer;
 }

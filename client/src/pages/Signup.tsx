@@ -7,13 +7,13 @@ import { ROUTES } from "../constants/routes";
 import { signup } from "../redux/auth";
 
 import AuthWrapper from "../components/layout/AuthWrapper";
-import FormBox from "../components/common/form/FormBox";
-import Form from "../components/common/form/Form";
+import FormBox from "../components/form/FormBox";
+import Form from "../components/form/Form";
 import Logo from "../components/common/Logo";
 import { Validator } from "../services/validation";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import FormSuccess from "../components/common/form/FormSuccess";
+import FormSuccess from "../components/form/FormSuccess";
 
 const Signup = () => {
   const auth = useSelector((state: RootState) => state.auth);

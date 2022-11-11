@@ -20,7 +20,19 @@ export const getUser = async (id: string) => {
       where: {
         id,
       },
+      include: {
+        boards: {
+          include: {
+            columns: {
+              include: {
+                tasks: true,
+              },
+            },
+          },
+        },
+      },
     });
+
     return response;
   } catch (err) {
     console.log(err);

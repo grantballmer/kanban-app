@@ -8,6 +8,7 @@ import { AuthState } from "../types/redux";
 import { auth } from "../firebase/config";
 import { AuthApi } from "../api/auth";
 import axios, { AxiosResponse } from "axios";
+import { setActiveBoard, updateBoards } from "./boards";
 
 interface CreateUserResponse extends AxiosResponse {
   id: string;
@@ -16,9 +17,14 @@ interface CreateUserResponse extends AxiosResponse {
 
 export const getUserData = createAsyncThunk(
   "auth/getuser",
-  async (id: string) => {
+  async (id: string, { dispatch }) => {
     try {
       const { data } = (await AuthApi.getUserData(id)) as AxiosResponse;
+
+      const { response } = data;
+
+      dispatch(updateBoards(response.boards));
+      dispatch(setActiveBoard(response.boards[0]));
 
       return data.response;
     } catch (err) {
@@ -50,7 +56,10 @@ export const signup = createAsyncThunk(
 
 export const login = createAsyncThunk(
   "auth/login",
-  async ({ email, password }: { email: string; password: string }, {}) => {
+  async (
+    { email, password }: { email: string; password: string },
+    { dispatch }
+  ) => {
     try {
       const firebaseResponse = await signInWithEmailAndPassword(
         auth,
@@ -61,6 +70,11 @@ export const login = createAsyncThunk(
       const { data } = (await AuthApi.getUserData(
         firebaseResponse.user.uid
       )) as AxiosResponse;
+
+      const { response } = data;
+
+      dispatch(updateBoards(response.boards));
+      dispatch(setActiveBoard(response.boards[0]));
 
       return data.response;
     } catch (err) {
@@ -92,7 +106,6 @@ export const authSlice = createSlice({
       state.userId = action.payload;
     },
     setLoading: (state, action) => {
-      console.log(action);
       state.loading = action.payload;
     },
   },

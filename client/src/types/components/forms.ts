@@ -1,5 +1,4 @@
-import { Props } from "../props";
-import { FieldError } from "../common";
+import { Props, FieldError } from "../common";
 import { ButtonProps } from "../components";
 
 export interface FormType extends Props {

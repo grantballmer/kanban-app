@@ -2,7 +2,7 @@ import React from "react";
 import "./modal.scss";
 import Modal from "react-modal";
 import { ModalHeaderProps, ModalProps } from "../../../types/components";
-import { Props } from "../../../types/props";
+import { Props } from "../../../types/common";
 
 Modal.setAppElement("#root");
 

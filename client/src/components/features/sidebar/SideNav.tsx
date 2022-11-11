@@ -5,28 +5,22 @@ import { BsGrid1X2 } from "react-icons/bs";
 
 import Modal from "../../common/modal/_Modal";
 import CreateBoardContent from "../../features/sidebar/modal/CreateBoardContent";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 const SideNav = () => {
   const [showModal, setShowModal] = useState(false);
   const location = useLocation();
   const { pathname } = location;
-  const links = [
-    {
-      href: "/",
-      text: "Platform Launch",
-      isActive: pathname === "/",
-    },
-    {
-      href: "/different",
-      text: "Different",
-      isActive: pathname === "/different",
-    },
-    {
-      href: "/another",
-      text: "Another",
-      isActive: pathname === "/another",
-    },
-  ];
+  const { boards } = useSelector((state: RootState) => state.boards);
+
+  const links = boards.map((board) => {
+    return {
+      href: board.href,
+      text: board.title,
+      isActive: pathname === board.href,
+    };
+  });
 
   return (
     <nav className={`${styles["side-nav"]} margin-top-default`}>
@@ -37,6 +31,7 @@ const SideNav = () => {
       <ul>
         {links.map((link) => (
           <li
+            key={link.href}
             className={`${styles["nav-item"]} ${
               link.isActive ? styles.active : ""
             } flex-row align-items-center`}

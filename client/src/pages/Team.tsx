@@ -8,8 +8,8 @@ import { signup } from "../redux/auth";
 import { Validator } from "../services/validation";
 
 import AuthWrapper from "../components/layout/AuthWrapper";
-import FormBox from "../components/common/form/FormBox";
-import Form from "../components/common/form/Form";
+import FormBox from "../components/form/FormBox";
+import Form from "../components/form/Form";
 import Logo from "../components/common/Logo";
 import Modal from "../components/common/modal/_Modal";
 import CreateTeamContent from "../components/features/team/CreateTeamContent";

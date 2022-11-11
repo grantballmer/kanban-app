@@ -1,6 +1,6 @@
 import React from "react";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import { COMMON } from "../../../constants/common";
+import { COMMON } from "../../constants/common";
 
 const FormSuccess = () => {
   return (
